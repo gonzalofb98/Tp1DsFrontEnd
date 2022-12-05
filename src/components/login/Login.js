@@ -31,15 +31,30 @@ function Login() {
             Email: email,
             Password: password
         };
-        console.log(data);
-
+        const url2 = "https://localhost:7117/api/ControladorAutenticacion/GetUser?email=" + data.Email;
         const url = 'https://localhost:7117/api/ControladorAutenticacion/Login';
+
         axios.post(url, data).then((result) => {
             console.log("Inicio sesion");
+            axios.get(url2).then((res) => {
+                switch ((res.data).rol) {
+                    case 1: console.log("Vista Supervisor de Linea");
+                        break;
+                    case 2: console.log("Vista Supervisor de Calidad");
+                        break;
+                    case 3: console.log("Vista Administrador");
+                        break;
+                    default:
+                        console.log("Vista Generica con todo deshabilitado");
+                }
+            }).catch((error) => {
+                console.log(error);
+            })
         }).catch((error) => {
             console.log("Fallo");
             alert(error);
         })
+
     }
 
     const theme = createTheme();
