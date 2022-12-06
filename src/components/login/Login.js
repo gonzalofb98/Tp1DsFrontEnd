@@ -12,11 +12,14 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginImage from '../../Resources/Images/loginImage.jpg';
 import SignUp from '../register/signUp';
+import { useNavigate } from 'react-router-dom';
+
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleEmailChange = (value) => {
         setEmail(value);
@@ -38,7 +41,9 @@ function Login() {
             console.log("Inicio sesion");
             axios.get(url2).then((res) => {
                 switch ((res.data).rol) {
-                    case 1: console.log("Vista Supervisor de Linea");
+                    case 1:
+                        navigate("/menu");
+                        console.log("Vista Supervisor de Linea");
                         break;
                     case 2: console.log("Vista Supervisor de Calidad");
                         break;
