@@ -1,21 +1,23 @@
 import './App.css';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
 import Login from './components/login/Login';
 import Menu from './components/menu/Menu';
-
+import { DataContext, DataProvider } from './context/DataContext';
 
 function App() {
+  const user = useContext(DataContext);
   return (
-    <div className="App">
-      <BrowserRouter>
+    <DataProvider>
+      <div className="App">
         <Routes>
-          {/* cambiar esto*/}
           <Route path="/" element={<Login />} />
+          <Route path="/menu" element={user === undefined ? <Menu /> : <Navigate to="/login" />}
+          />
           <Route path="/login" element={<Login />} />
-          <Route path="/menu" element={<Menu />} />
         </Routes>
-      </BrowserRouter>
-    </div>
+      </div>
+    </DataProvider>
   );
 }
 

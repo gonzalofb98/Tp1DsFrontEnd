@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,13 +13,15 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginImage from '../../Resources/Images/loginImage.jpg';
 import SignUp from '../register/signUp';
 import { useNavigate } from 'react-router-dom';
-
+import { DataContext } from '../../context/DataContext';
+import { useEffect } from 'react';
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const { user, setUser } = useContext(DataContext);
 
     const handleEmailChange = (value) => {
         setEmail(value);
@@ -38,8 +40,9 @@ function Login() {
         const url = 'https://localhost:7117/api/ControladorAutenticacion/Login';
 
         axios.post(url, data).then((result) => {
-            console.log("Inicio sesion");
+            //Inicio Sesion
             axios.get(url2).then((res) => {
+                setUser(res.data);
                 switch ((res.data).rol) {
                     case 1:
                         navigate("/menu");
@@ -53,10 +56,11 @@ function Login() {
                         console.log("Vista Generica con todo deshabilitado");
                 }
             }).catch((error) => {
+                // no se traer al usuario
                 console.log(error);
             })
         }).catch((error) => {
-            console.log("Fallo");
+            //error al iniciar Sesion
             alert(error);
         })
 
