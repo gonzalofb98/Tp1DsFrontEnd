@@ -14,14 +14,13 @@ import loginImage from '../../Resources/Images/loginImage.jpg';
 import SignUp from '../register/signUp';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../context/DataContext';
-import { useEffect } from 'react';
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    const { user, setUser } = useContext(DataContext);
+    var { user, setUser } = useContext(DataContext);
 
     const handleEmailChange = (value) => {
         setEmail(value);
@@ -30,35 +29,30 @@ function Login() {
         setPassword(value);
     }
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
         const data = {
             Email: email,
             Password: password
         };
-        const url2 = "https://localhost:7117/api/ControladorAutenticacion/GetUser?email=" + data.Email;
         const url = 'https://localhost:7117/api/ControladorAutenticacion/Login';
 
-        axios.post(url, data).then((result) => {
+        await axios.post(url, data).then(async (result) => {
             //Inicio Sesion
-            axios.get(url2).then((res) => {
-                setUser(res.data);
-                switch ((res.data).rol) {
-                    case 1:
-                        navigate("/menu");
-                        console.log("Vista Supervisor de Linea");
-                        break;
-                    case 2: console.log("Vista Supervisor de Calidad");
-                        break;
-                    case 3: console.log("Vista Administrador");
-                        break;
-                    default:
-                        console.log("Vista Generica con todo deshabilitado");
-                }
-            }).catch((error) => {
-                // no se traer al usuario
-                console.log(error);
-            })
+            const url2 = "https://localhost:7117/api/ControladorAutenticacion/GetUser?email=" + data.Email;
+            const res = await axios.get(url2);
+            user = res.data;
+            switch (user.rol) {
+                case 1: console.log("Vista Supervisor de Linea");
+                    navigate("/administrator");
+                    break;
+                case 2: console.log("Vista Supervisor de Calidad");
+                    break;
+                case 3: console.log("Vista Administrador");
+                    break;
+                default:
+                    console.log("Vista Generica con todo deshabilitado");
+            }
         }).catch((error) => {
             //error al iniciar Sesion
             alert(error);
