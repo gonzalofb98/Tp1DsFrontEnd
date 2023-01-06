@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { Fragment, useContext, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,14 +13,22 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import loginImage from '../../Resources/Images/loginImage.jpg';
 import SignUp from '../register/signUp';
 import { useNavigate } from 'react-router-dom';
-import { DataContext } from '../../context/DataContext';
+import { UserContext } from '../../context/UserContext';
+import { loginUser } from '../../Services/userServices';
 
 function Login() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
-    var { user, setUser } = useContext(DataContext);
+    var { user, setUser } = useContext(UserContext);
+
+    const defaultDirection = '/';
+    const directions = {
+        1: '/administrator',
+        2: '/administrator',
+        3: '/administrator',
+    }
 
     const handleEmailChange = (value) => {
         setEmail(value);
@@ -29,35 +37,20 @@ function Login() {
         setPassword(value);
     }
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
+    useEffect(() => {
+        if (user) {
+            navigate(directions[user.rol]);
+        } else {
+            navigate(directions);
+        }
+    }, [user]);
+
+    const handleLogin = async () => {
         const data = {
             Email: email,
             Password: password
         };
-        const url = 'https://localhost:7117/api/ControladorAutenticacion/Login';
-
-        await axios.post(url, data).then(async (result) => {
-            //Inicio Sesion
-            const url2 = "https://localhost:7117/api/ControladorAutenticacion/GetUser?email=" + data.Email;
-            const res = await axios.get(url2);
-            user = res.data;
-            switch (user.rol) {
-                case 1: console.log("Vista Supervisor de Linea");
-                    navigate("/administrator");
-                    break;
-                case 2: console.log("Vista Supervisor de Calidad");
-                    break;
-                case 3: console.log("Vista Administrador");
-                    break;
-                default:
-                    console.log("Vista Generica con todo deshabilitado");
-            }
-        }).catch((error) => {
-            //error al iniciar Sesion
-            alert(error);
-        })
-
+        loginUser(data, setUser);
     }
 
     const theme = createTheme();
@@ -97,7 +90,7 @@ function Login() {
                             <Typography component="h1" variant="h5">
                                 Sign in
                             </Typography>
-                            <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 1 }}>
+                            <Box component="form" noValidate sx={{ mt: 1 }}>
                                 <TextField
                                     margin="normal"
                                     required
@@ -125,10 +118,10 @@ function Login() {
                                     label="Remember me"
                                 /> */}
                                 <Button
-                                    type="submit"
                                     fullWidth
                                     variant="contained"
                                     sx={{ mt: 3, mb: 2 }}
+                                    onClick={handleLogin}
                                 >
                                     Sign In
                                 </Button>

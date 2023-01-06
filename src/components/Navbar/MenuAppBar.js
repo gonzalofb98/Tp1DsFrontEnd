@@ -10,13 +10,13 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
-import { DataContext } from '../../context/DataContext';
+import { UserContext } from '../../context/UserContext';
 
 export default function MenuAppBar() {
     const [auth, setAuth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const navigate = useNavigate();
-    const { user, setUser } = useContext(DataContext);
+    const { user, setUser } = useContext(UserContext);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -27,12 +27,13 @@ export default function MenuAppBar() {
     };
 
     const handleLogout = () => {
-        navigate("/login");
         setUser(undefined);
+        navigate("/login");
     }
 
     return (
-        <Box sx={{ flexGrow: 1 }}>
+        < Box sx={{ flexGrow: 1 }
+        }>
             <AppBar position="static">
                 <Toolbar>
                     <IconButton
@@ -57,7 +58,7 @@ export default function MenuAppBar() {
                                 onClick={handleMenu}
                                 color="inherit"
                             >
-                                <AccountCircle />
+                                <a><AccountCircle /> {user.name + " " + user.lastName}</a>
                             </IconButton>
                             <Menu
                                 id="menu-appbar"
@@ -80,6 +81,6 @@ export default function MenuAppBar() {
                     )}
                 </Toolbar>
             </AppBar>
-        </Box>
+        </Box >
     );
 }

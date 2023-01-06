@@ -8,7 +8,7 @@ const AdministratorMenu = () => {
     return (
         <div>
             <MenuAppBar />
-            <div className="divMenu">
+            {/* <div className="divMenu">
                 <container>
                     {
                         names.map(name => {
@@ -17,11 +17,10 @@ const AdministratorMenu = () => {
                                     <Button variant="contained" color="primary" disableElevation>{name}</Button>
                                 </div >
                             )
-                        }
-                        )
+                        })
                     }
                 </container >
-            </div >
+            </div > */}
         </div>
     );
 }
