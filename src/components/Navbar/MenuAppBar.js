@@ -16,7 +16,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 const pages = ['Gestionar Modelos', 'Gestionar Colores', 'Gestionar Usuarios'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-function MenuAppBar() {
+function MenuAppBar(props) {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -55,7 +55,7 @@ function MenuAppBar() {
               textDecoration: 'none',
             }}
           >
-            LOGO
+            TP1
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -114,7 +114,7 @@ function MenuAppBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {/* {pages.map((page) => (
               <Button
                 key={page}
                 onClick={handleCloseNavMenu}
@@ -122,7 +122,10 @@ function MenuAppBar() {
               >
                 {page}
               </Button>
-            ))}
+            ))} */}
+            {
+              props.pages
+            }
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
