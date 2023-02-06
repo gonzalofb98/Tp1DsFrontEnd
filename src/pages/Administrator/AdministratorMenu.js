@@ -7,7 +7,7 @@ const AdministratorMenu = () => {
     const names = ['Gestionar Modelos', 'Gestionar Colores', 'Gestionar Usuarios'];
     return (
         <div>
-            <MenuAppBar />
+            <MenuAppBar pages={names} />
             {/* <div className="divMenu">
                 <container>
                     {
