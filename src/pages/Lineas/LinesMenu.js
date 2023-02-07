@@ -25,7 +25,7 @@ const LinesMenu = () => {
     }, []);
 
     function accessLine() {
-        navigate(userRol[user.rol] || "/")
+        navigate(userRol[user.rol] || "/");
     }
 
     return (
