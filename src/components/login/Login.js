@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -23,13 +22,6 @@ function Login() {
     const navigate = useNavigate();
     var { user, setUser } = useContext(UserContext);
 
-    const defaultDirection = '/';
-    const directions = {
-        1: '/administrator',
-        2: '/administrator',
-        3: '/administrator',
-    }
-
     const handleEmailChange = (value) => {
         setEmail(value);
     }
@@ -39,9 +31,9 @@ function Login() {
 
     useEffect(() => {
         if (user) {
-            navigate(directions[user.rol]);
+            navigate("/menu");
         } else {
-            navigate(directions);
+            navigate("/");
         }
     }, [user]);
 

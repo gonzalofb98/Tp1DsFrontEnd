@@ -11,9 +11,10 @@ import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
+import { useEffect } from 'react';
 
 export default function MenuAppBar() {
-    const [auth, setAuth] = React.useState(true);
+    const [auth] = React.useState(true);
     const [anchorEl, setAnchorEl] = React.useState(null);
     const navigate = useNavigate();
     const { user, setUser } = useContext(UserContext);
@@ -28,7 +29,7 @@ export default function MenuAppBar() {
 
     const handleLogout = () => {
         setUser(undefined);
-        navigate("/login");
+        navigate("/")
     }
 
     return (

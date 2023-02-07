@@ -18,6 +18,6 @@ export const loginUser = async (data, setUser) => {
         setUser(await getUser(data.Email));
     }).catch((error) => {
         //error al iniciar Sesion
-        alert(error);
+        alert(error.response.data.errors[0]);
     })
 }
