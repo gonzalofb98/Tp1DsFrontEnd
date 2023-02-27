@@ -22,7 +22,7 @@ const estados = {
 const OutlinedCard = (x) => {
     return (
         <div >
-            <Box sx={{ minWidth: 275, boxShadow: 5 }}>
+            <Box sx={{ boxShadow: 5, p: 0 }}>
                 <Card variant="outlined" >
                     <React.Fragment>
                         <CardContent sx={{
@@ -30,7 +30,7 @@ const OutlinedCard = (x) => {
                             backgroundRepeat: 'no-repeat',
                             backgroundPosition: 'center',
                         }}>
-                            <CardContent size="small" >
+                            <CardContent >
                                 <Typography variant="h3" component="div">
                                     Linea {bull} {x.numero}
                                 </Typography>

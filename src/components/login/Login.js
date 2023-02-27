@@ -31,7 +31,8 @@ function Login() {
 
     useEffect(() => {
         if (user) {
-            navigate("/menu");
+            if (user.rol === 3) navigate("/AdministratorMenu")
+            else navigate("/menu");
         } else {
             navigate("/");
         }
@@ -105,10 +106,6 @@ function Login() {
                                     autoComplete="current-password"
                                     onChange={(e) => handlePasswordChange(e.target.value)}
                                 />
-                                {/* <FormControlLabel
-                                    control={<Checkbox value="remember" color="primary" />}
-                                    label="Remember me"
-                                /> */}
                                 <Button
                                     fullWidth
                                     variant="contained"
@@ -118,11 +115,6 @@ function Login() {
                                     Sign In
                                 </Button>
                                 <Grid container>
-                                    <Grid item xs>
-                                        {/* <Link href="#" variant="body2">
-                                            Forgot password?
-                                        </Link> */}
-                                    </Grid>
                                     <Grid item>
                                         <SignUp />
                                     </Grid>

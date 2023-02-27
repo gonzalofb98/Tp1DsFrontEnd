@@ -1,10 +1,10 @@
 import React from 'react';
 import MenuAppBar from '../../../components/Navbar/MenuAppBar'
 import { useNavigate } from 'react-router-dom';
-import ManageColors from '../../../components/Colors/ManageColors';
+import ManageLines from '../../../components/Lines/ManageLines.js';
 import { Button } from '@mui/material';
 
-const ManageColorsPage = () => {
+const ManageLinesPage = () => {
 
     const navigate = useNavigate();
 
@@ -15,10 +15,10 @@ const ManageColorsPage = () => {
     return (
         <div >
             <MenuAppBar />
-            <ManageColors />
+            <ManageLines />
             <Button type="button" variant="contained" onClick={back}>Volver</Button>
         </div >
     );
 }
 
-export default ManageColorsPage;
+export default ManageLinesPage;

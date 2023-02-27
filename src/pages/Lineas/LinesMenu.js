@@ -10,7 +10,7 @@ import { UserContext } from '../../context/UserContext';
 
 
 const LinesMenu = () => {
-    const [lineas, setLineas] = useState([]);
+    const [lines, setLineas] = useState([]);
     const navigate = useNavigate();
     var { user, setUser } = useContext(UserContext);
 
@@ -24,18 +24,18 @@ const LinesMenu = () => {
         getLines(setLineas);
     }, []);
 
-    function accessLine() {
-        navigate(userRol[user.rol] || "/");
+    function accessLine(lineId) {
+        navigate(userRol[user.rol] + "/LineId/" + lineId || "/");
     }
 
     return (
         <div>
             <MenuAppBar />
             <div>
-                <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ p: 2 }}>
-                    {[...lineas].map(x => (
-                        < Grid item xs={6}>
-                            <div onClick={accessLine} >{OutlinedCard(x)}</div>
+                <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 5 }} sx={{ p: 6, justifyContent: "center", width: "100%" }}>
+                    {[...lines].map(x => (
+                        < Grid item >
+                            <div onClick={() => { accessLine(x.id) }} >{OutlinedCard(x)}</div>
                         </Grid>))
                     }
                 </Grid>

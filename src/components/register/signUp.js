@@ -57,11 +57,10 @@ function SignUp() {
             email: email,
             password: password
         };
-        console.log(JSON.stringify(data));
 
         const url = 'https://localhost:7117/api/ControladorAutenticacion/Register';
         axios.post(url, data).then((result) => {
-            alert(result.data);
+            alert(result.data + "Se Registro Correctamente");
             window.location.reload();
         }).catch((error) => {
             alert(error.message);
@@ -71,7 +70,7 @@ function SignUp() {
     return (
         <Fragment>
             <div>
-                <Link onClick={handleOpen} >Don't have an account? Sign Up</Link>
+                <Link onClick={handleOpen} >Sign Up</Link>
                 <Modal
                     open={open}
                     onClose={handleClose}
@@ -134,6 +133,7 @@ function SignUp() {
                                 id="Password"
                                 label="Contraseña"
                                 name="password"
+                                type="password"
                                 autoFocus
                                 onChange={(e) => handlePasswordChange(e.target.value)}
                             />
