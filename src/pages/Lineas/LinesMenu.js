@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import MenuAppBar from '../../components/Navbar/MenuAppBar';
 import OutlinedCard from '../../components/Card/Card';
-import { Grid } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { getLines } from '../../Services/lineServices';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-
-
 
 const LinesMenu = () => {
     const [lines, setLineas] = useState([]);
@@ -17,7 +15,6 @@ const LinesMenu = () => {
     const userRol = {
         1: "/LineSupervisorMenu",
         2: "/QualitySupervisorMenu",
-        3: "/AdministratorMenu"
     }
 
     useEffect(() => {
@@ -33,10 +30,15 @@ const LinesMenu = () => {
             <MenuAppBar />
             <div>
                 <Grid container rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 5 }} sx={{ p: 6, justifyContent: "center", width: "100%" }}>
-                    {[...lines].map(x => (
-                        < Grid item >
-                            <div onClick={() => { accessLine(x.id) }} >{OutlinedCard(x)}</div>
-                        </Grid>))
+                    {lines.length === 0 ? (
+                        <Typography variant="body1">No hay líneas creadas</Typography>
+                    ) : (
+                        [...lines].map(x => (
+                            < Grid item >
+                                <div onClick={() => { accessLine(x.id) }} >{OutlinedCard(x)}</div>
+                            </Grid>))
+
+                    )
                     }
                 </Grid>
             </div>

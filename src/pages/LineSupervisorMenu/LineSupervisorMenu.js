@@ -10,25 +10,23 @@ const LineSupervisorMenu = () => {
     const { lineId } = useParams();
     const navigate = useNavigate();
     const [line, setLine] = useState({});
-    const estados = {
-        0: 'Libre',
-        1: 'Ocupada',
-    }
 
     useEffect(() => {
         getLineById(lineId, setLine);
-    }, []);
+    }, [line]);
+
+    const handleOrderAdded = () => {
+        line.estado = 1;
+    };
 
     const back = () => {
         navigate("/menu");
-    }
+    };
+
     return (
         <div>
-            {
-                console.log(line)
-            }
             <MenuAppBar />
-            {(line.estado === 0) ? <CreateNewOP line /> : <ExistingOP line />}
+            {(line.estado === 0) ? <CreateNewOP line={line} onOrderAdded={handleOrderAdded} /> : <ExistingOP line={line} />}
             <Grid container justifyContent="center">
                 <Button onClick={back} variant="contained">Volver</Button>
             </Grid>
