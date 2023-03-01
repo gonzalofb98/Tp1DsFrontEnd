@@ -12,6 +12,7 @@ import ManageDefectsPage from './pages/Administrator/ManageDefects/ManageDefects
 import ManageLinesPage from './pages/Administrator/ManageLines/ManageLinesPage';
 
 import { UserContext } from './context/UserContext';
+import ManageTurnsPage from './pages/Administrator/ManageTurns/ManageTurnsPage';
 
 function App() {
   const user = useContext(UserContext);
@@ -22,12 +23,13 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/menu" element={user === undefined ? navigate("/") : <LinesMenu />} />´
         <Route path="/LineSupervisorMenu/LineId/:lineId" element={<LineSupervisorMenu />} />
-        <Route path="/QualitySupervisorMenu" element={<AdministratorMenu />} />
+        <Route path="/QualitySupervisorMenu" element={<LinesMenu />} />
         <Route path="/AdministratorMenu" element={<AdministratorMenu />} />
         <Route path="/ManageModels" element={<ManageModelsPage />} />
         <Route path="/ManageColors" element={<ManageColorsPage />} />
         <Route path="/ManageDefects" element={<ManageDefectsPage />} />
         <Route path="/ManageLines" element={<ManageLinesPage />} />
+        <Route path="/ManageTurn" element={<ManageTurnsPage />} />
       </Routes>
     </div>
   );

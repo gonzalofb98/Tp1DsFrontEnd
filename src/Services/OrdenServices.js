@@ -7,6 +7,26 @@ export const getOrders = (setOrders) => {
         });
 }
 
+export const getOrderByEmail = (email, setOp) => {
+    axios.get(`https://localhost:7117/api/ControladorOrdenDeProduccion/ByUsuario?email=` + email)
+        .then((res) => {
+            setOp(res.data);
+        });
+}
+
+export const changeStateByEmail = (email, setOp) => {
+    axios.put(`https://localhost:7117/api/ControladorOrdenDeProduccion/ChangeEstado?email=` + email)
+        .then((res) => {
+            setOp(res.data);
+        });
+}
+
+export const finishOpByEmail = (email) => {
+    axios.put(`https://localhost:7117/api/ControladorOrdenDeProduccion/FinishOp?email=` + email)
+        .then(() => {
+        });
+}
+
 // export const putColors = (editedColor, setEditingColor, colors, setColors) => {
 //     axios
 //         .put(`https://localhost:7117/api/ControladorOrdenDeProduccion/${editedColor.id}`, editedColor)
@@ -19,9 +39,10 @@ export const getOrders = (setOrders) => {
 //         });
 // }
 
-export const addOrder = async (order) => {
+export const addOrder = async (order, setOp) => {
     const url = 'https://localhost:7117/api/ControladorOrdenDeProduccion/Create';
-    await axios.post(url, order).then(async () => {
+    await axios.post(url, order).then(async (res) => {
+        setOp(res.data);
     }).catch((error) => {
         alert(error.response.data.errors[0]);
     })

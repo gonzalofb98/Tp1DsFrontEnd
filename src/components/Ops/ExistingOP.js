@@ -1,10 +1,135 @@
+import { Button, Grid, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import TabList from "./DefectsView/TabList";
 
+export default function ExistingOP(props) {
+    const op = props.order;
+    const [fechaInicioFormato, setFechaInicioFormato] = useState("");
 
-export default function ExistingOP() {
+    const estadoOp = {
+        0: "Activo",
+        1: "Pausado",
+        2: "Finalizado"
+    }
+
+    useEffect(() => {
+        if (op.fechaInicio) {
+            const fechaInicio = new Date(op.fechaInicio);
+            const dia = fechaInicio.getDate().toString().padStart(2, "0");
+            const mes = (fechaInicio.getMonth() + 1).toString().padStart(2, "0");
+            const anio = fechaInicio.getFullYear();
+            const fechaEnFormatoDeseado = `${dia}-${mes}-${anio}`;
+            setFechaInicioFormato(fechaEnFormatoDeseado);
+        }
+    }, [op]);
+
+    const handleReanudar = () => {
+        props.changeState(op.supervisorDeLinea.email);
+    }
+
+    const handlePausar = () => {
+        props.changeState(op.supervisorDeLinea.email);
+    }
+
+    const handleFinalizar = () => {
+        if (window.confirm("¿Está seguro de que finzalizar esta Op?")) {
+            props.finishOp(op.supervisorDeLinea.email);
+        }
+    }
 
     return (
-        <div>Aqui poner la op existente
+        <div>
+            <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 3, md: 1 }}
+                sx={{ mt: 1, mb: 1, justifyContent: "center", width: "100%" }}
+            >
+                <Grid item>
+                    <TextField
+                        label="OP Actual"
+                        value={op ? op.numero : ""}
+                        variant="standard"
+                        InputProps={{ readOnly: true, }}
+                        InputLabelProps={{ shrink: true, }}
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField label="Usuario Asignado"
+                        value={op.supervisorDeLinea ? op.supervisorDeLinea.lastName : ""}
+                        variant="standard"
+                        InputProps={{ readOnly: true, }}
+                        InputLabelProps={{ shrink: true, }}
+                    />
+                </Grid>
+
+                <Grid item>
+                    <TextField label="Fecha de Creación"
+                        value={fechaInicioFormato}
+                        variant="standard"
+                        InputProps={{ readOnly: true, }}
+                        InputLabelProps={{ shrink: true, }}
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField label="Turno"
+                        value={"turnoMañana"}
+                        variant="standard"
+                        InputProps={{ readOnly: true, }}
+                        InputLabelProps={{ shrink: true, }}
+                    />
+                </Grid>
+                <Grid item>
+
+                    <TextField label="Modelo"
+                        value={op.modelo ? op.modelo.descripcion : ""}
+                        variant="standard"
+                        InputProps={{ readOnly: true, }}
+                        InputLabelProps={{ shrink: true, }}
+                    />
+                </Grid>
+                <Grid item>
+                    <TextField label="Color"
+                        value={op.color ? op.color.descripcion : ""}
+                        variant="standard"
+                        InputProps={{ readOnly: true, }}
+                        InputLabelProps={{ shrink: true, }}
+                    />
+                </Grid>
+            </Grid>
+
+            <Grid container
+                spacing={3} sx={{ p: 2, pt: 2 }}>
+                {op.estado === 2 ? (
+                    <Grid item xs={2}>
+                        <TextField label="Estado" value="Finalizado"
+                            InputProps={{ readOnly: true, }}
+                            InputLabelProps={{ shrink: true, }}
+                        />
+                    </Grid>
+                ) : (
+
+                    <Grid item xs={12} sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+                        <Grid item >
+                            <TextField label="Estado" value={estadoOp[op.estado] || "hola"}
+                                InputProps={{ readOnly: true, }}
+                                InputLabelProps={{ shrink: true, }}
+                            />
+                        </Grid>
+                        <div>
+                            {op.estado === 1 ? (
+                                <Button sx={{ m: 2 }} variant="contained" onClick={handleReanudar}>
+                                    Reanudar
+                                </Button>
+                            ) : (
+                                <Button sx={{ m: 2 }} variant="contained" onClick={handlePausar}>
+                                    Pausar
+                                </Button>
+                            )}
+                            <Button sx={{ m: 2 }} variant="contained" onClick={handleFinalizar}>
+                                Finalizar
+                            </Button>
+                        </div>
+                    </Grid>
+                )}
+            </Grid>
         </div>
     );
 };

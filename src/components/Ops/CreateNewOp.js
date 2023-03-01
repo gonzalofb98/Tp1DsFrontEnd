@@ -1,7 +1,5 @@
-import { Button, Grid, TextField } from "@mui/material";
-import axios from "axios";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../context/UserContext";
 import { getColors } from "../../Services/ColorServices";
 import { getModels } from "../../Services/ModelServices";
@@ -9,6 +7,7 @@ import { addOrder } from "../../Services/OrdenServices";
 
 export default function CreateNewOP(props) {
     const line = props.line;
+    const op = props.order;
     const [nroOP, setNroOP] = useState('');
     const [model, setModel] = useState('');
     const [color, setColor] = useState('');
@@ -16,7 +15,6 @@ export default function CreateNewOP(props) {
     const [colors, setColors] = useState([{ id: 0, descripcion: "Seleccione una opción" }]);
     const user = useContext(UserContext).user;
     const [email, setEmail] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         getModels(setModels);
@@ -38,14 +36,13 @@ export default function CreateNewOP(props) {
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = { id: 0, nroOP, modeloId: parseInt(model), colorId: parseInt(color), lineaId: line.id, email };
-        addOrder(data)
-        props.onOrderAdded();
+        addOrder(data, props.setData);
     };
 
     return (
         <form onSubmit={handleSubmit}>
 
-            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid container rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 3 }} sx={{ m: 2 }}>
                 <Grid item xs={12}>
                     <TextField
                         fullWidth
@@ -93,18 +90,29 @@ export default function CreateNewOP(props) {
                         ))}
                     </TextField>
                 </Grid>
-                <Grid container justifyContent="center" alignItems="center">
-                    <Grid item sx={{ display: 'flex', gap: 2, m: 2, justifyContent: 'center' }}>
-                        <Button variant="outlined" onClick={handleCancelar}>
-                            Cancelar
-                        </Button>
-                    </Grid>
-                    <Grid item sx={{ display: 'flex', gap: 2, m: 2, justifyContent: 'center' }}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Confirmar
-                        </Button>
-                    </Grid>
-                </Grid>
+                {op.estado === undefined ?
+                    (<Grid container justifyContent="center" alignItems="center">
+                        <Grid item sx={{ display: 'flex', gap: 2, m: 2, justifyContent: 'center' }}>
+                            <Button variant="outlined" onClick={handleCancelar}>
+                                Cancelar
+                            </Button>
+                        </Grid>
+                        <Grid item sx={{ display: 'flex', gap: 2, m: 2, justifyContent: 'center' }}>
+                            <Button type="submit" variant="contained" color="primary">
+                                Confirmar
+                            </Button>
+                        </Grid>
+                    </Grid>)
+                    :
+                    (<Grid container justifyContent="center" alignItems="center">
+                        <Grid item sx={{ display: 'flex', gap: 2, m: 2, justifyContent: 'center' }}>
+                            <Typography>
+                                Usted ya posee una Orden, debera finalizarla antes de crear una nueva
+                            </Typography>
+                        </Grid>
+                    </Grid>)
+                }
+
             </Grid>
         </form>
     );
