@@ -24,7 +24,7 @@ export const addModel = async (model) => {
     const url = 'https://localhost:7117/ControladorModelos/Create';
     await axios.post(url, model).then(async () => {
     }).catch((error) => {
-        alert(error.response.data.errors[0]);
+        alert(error.response.data);
     })
 }
 

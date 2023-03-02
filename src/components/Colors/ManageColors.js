@@ -28,7 +28,7 @@ export default function ManageColors() {
 
     const handleAddSubmit = (color) => {
         addColor(color);
-        setEditingColor({ codigo: 0, descripcion: '', id: null });
+        setEditingColor({ codigo: 0, descripcion: '', id: 0 });
     };
 
     return (

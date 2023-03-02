@@ -6,7 +6,7 @@ import CreateNewOP from '../../components/Ops/CreateNewOp';
 import ExistingOP from '../../components/Ops/ExistingOP';
 import { UserContext } from '../../context/UserContext';
 import { getLineById } from '../../Services/lineServices';
-import { changeStateByEmail, finishOpByEmail, getOrderByEmail } from '../../Services/OrdenServices';
+import { changeStateByEmail, finishOpByEmail, getOrderByEmail, getOrderByLinea } from '../../Services/OrdenServices';
 
 const LineSupervisorMenu = () => {
     const { lineId } = useParams();
@@ -24,7 +24,7 @@ const LineSupervisorMenu = () => {
     }, [])
 
     useEffect(() => {
-        getOrderByEmail(user.email, setOp)
+        getOrderByLinea(lineId, setOp)
     }, [op])
 
     const changeOpState = (email) => {

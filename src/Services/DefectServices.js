@@ -21,6 +21,7 @@ export const putDefects = (editedDefect, setEditingDefect, defects, setDefects) 
 
 export const addDefect = async (defect) => {
     const url = 'https://localhost:7117/ControladorDefectos/Create';
+    console.log(defect)
     await axios.post(url, defect).then(async () => {
     }).catch((error) => {
         alert(error.response.data.errors[0]);

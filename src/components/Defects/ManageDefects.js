@@ -28,7 +28,7 @@ export default function ManageDefects() {
 
     const handleAddSubmit = (defect) => {
         addDefect(defect);
-        setEditingDefect({ tipo: 0, descripcion: '', id: null });
+        setEditingDefect({ tipo: 0, descripcion: '', id: 0 });
     };
 
     return (

@@ -28,7 +28,7 @@ export default function ManageColors() {
 
     const handleAddSubmit = (color) => {
         addLine(color);
-        setEditingLine({ numero: 0, estado: 0, id: null });
+        setEditingLine({ numero: 0, estado: 0, id: 0 });
     };
 
     return (

@@ -21,10 +21,12 @@ export const putColors = (editedColor, setEditingColor, colors, setColors) => {
 
 export const addColor = async (color) => {
     const url = 'https://localhost:7117/api/ControladorColores/Create';
+    console.log(color)
     await axios.post(url, color).then(async () => {
     }).catch((error) => {
         alert(error.response.data.errors[0]);
     })
+
 }
 
 export const deleteColor = async (color) => {

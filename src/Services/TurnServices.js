@@ -14,6 +14,19 @@ export const getTurnById = (id, setTurn) => {
         });
 }
 
+export const getTurnoActual = (setTurn) => {
+    axios.get(`https://localhost:7117/api/ControladorTurnos/CurrentTurn`)
+        .then((res) => {
+            setTurn(res.data);
+        });
+}
+export const getHoursOfCurrentTurn = (description, setTurn) => {
+    axios.get(`https://localhost:7117/api/ControladorTurnos/TotalHorasByDescripcion?desc=` + description)
+        .then((res) => {
+            setTurn(res.data);
+        });
+}
+
 export const getTurnByDescription = (description, setTurn) => {
     axios.get(`https://localhost:7117/api/ControladorTurnos/ByDescripcion?desc=` + description)
         .then((res) => {

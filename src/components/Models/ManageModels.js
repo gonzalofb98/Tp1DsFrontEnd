@@ -29,7 +29,7 @@ export default function ManageModels() {
 
   const handleAddSubmit = (model) => {
     addModel(model);
-    setEditingModel({ sku: '', descripcion: '', limiteInferiorReproceso: 0, limiteSuperiorReproceso: 0, limiteInferiorObservado: 0, limiteSuperiorObservado: 0, id: null });
+    setEditingModel({ sku: '', descripcion: '', limiteInferiorReproceso: 0, limiteSuperiorReproceso: 0, limiteInferiorObservado: 0, limiteSuperiorObservado: 0, id: 0 });
   };
 
   return (

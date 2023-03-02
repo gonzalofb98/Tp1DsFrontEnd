@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Tabs, Tab } from '@mui/material';
+import { Tabs, Tab, Grid, Typography } from '@mui/material';
 import TabPanel from './TabPanel';
+import { getHoursOfCurrentTurn, getTurnoActual } from '../../../Services/TurnServices';
 
-const TabList = () => {
-    const [hours, setHours] = useState(["8:00 AM",
-        "9:00 AM",
-        "10:00 AM",
-        "11:00 AM",
-        "12:00 PM",
-        "1:00 PM",
-        "2:00 PM",
-        "3:00 PM"]);
+const TabList = (props) => {
+    const [hours, setHours] = useState([]);
+    const [turn, setTurn] = useState({});
     const [value, setValue] = useState(0);
 
     useEffect(() => {
@@ -19,7 +14,11 @@ const TabList = () => {
         // axios.get('url_del_backend').then(response => {
         //     setHours(response.data);
         // });
+        getTurnoActual(setTurn)
     }, []);
+    useEffect(() => {
+        getHoursOfCurrentTurn(turn.descripcion, setHours);
+    }, [turn])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -29,11 +28,12 @@ const TabList = () => {
         <div>
             <Tabs value={value} onChange={handleChange}>
                 {hours.map((hour, index) => (
-                    < Tab key={index} label={hour} />
+                    < Tab key={index} label={hour.toString().padStart(2, '0') + ":00"} />
                 ))}
             </Tabs>
+
             {hours.map((hour, index) => (
-                <TabPanel key={index} hour={hour} value={value} index={index} />
+                <TabPanel value={value} index={index} />
             ))}
         </div>
     );
