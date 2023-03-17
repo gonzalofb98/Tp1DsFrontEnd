@@ -30,74 +30,89 @@ const TabPanel = ({ hour, value, index }) => {
         <div role="tabpanel" hidden={value !== index}>
 
             {value === index && (
-                <Grid container>
-                    <Grid item>
-                        <TableContainer component={Paper} >
-                            Reproceso
-                            <Table >
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell sx={{ p: 1, textAlign: "center" }}>Izquierda</TableCell>
-                                        <TableCell sx={{ p: 1, textAlign: "center" }}>Defecto</TableCell>
-                                        <TableCell sx={{ p: 1, textAlign: "center" }}>Derecha</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {reworkDefects.map((defect, index) => (
-                                        < TableRow key={index} >
-                                            <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
-                                                <Button onClick={() => handleLeftIncrement(index)}><Add /></Button>
-                                                Nº
-                                                <Button onClick={() => handleLeftDecrement(index)}><Remove /></Button>
-                                            </TableCell>
-                                            <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>{defect.descripcion}</TableCell>
-                                            <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
-                                                <Button onClick={() => handleRightIncrement(index)}><Add /></Button>
-                                                Nº
-                                                <Button onClick={() => handleRightDecrement(index)}><Remove /></Button>
-                                            </TableCell>
+                <Grid container justifyContent="center">
+                    <Grid container justifyContent="center">
+                        <Grid item sx={{ m: 0, mb: 2 }}>
+                            <Grid item>
+                                Pares de Primera
+                            </Grid>
+                            <Button onClick={() => handleLeftIncrement(index)}><Add /></Button>
+                            Nº
+                            <Button onClick={() => handleLeftDecrement(index)}><Remove /></Button>
+                        </Grid>
+                    </Grid>
+
+                    <Grid container justifyContent="center">
+                        <Grid item>
+                            <TableContainer component={Paper} >
+                                Reproceso
+                                <Table >
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell sx={{ p: 1, textAlign: "center" }}>Izquierda</TableCell>
+                                            <TableCell sx={{ p: 1, textAlign: "center" }}>Defecto</TableCell>
+                                            <TableCell sx={{ p: 1, textAlign: "center" }}>Derecha</TableCell>
                                         </TableRow>
-                                    ))
-                                    }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </Grid>
-                    <Grid item sx={{ m: 3 }}>
-                        hola
-                    </Grid>
-                    <Grid item>
-                        <TableContainer component={Paper} >
-                            Observado
-                            <Table >
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell sx={{ p: 1, textAlign: "center" }}>Izquierda</TableCell>
-                                        <TableCell sx={{ p: 1, textAlign: "center" }}>Defecto</TableCell>
-                                        <TableCell sx={{ p: 1, textAlign: "center" }}>Derecha</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {reworkDefects.map((defect, index) => (
-                                        < TableRow key={index} >
-                                            <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
-                                                <Button onClick={() => handleLeftIncrement(index)}><Add /></Button>
-                                                Nº
-                                                <Button onClick={() => handleLeftDecrement(index)}><Remove /></Button>
-                                            </TableCell>
-                                            <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>{defect.descripcion}</TableCell>
-                                            <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
-                                                <Button onClick={() => handleRightIncrement(index)}><Add /></Button>
-                                                Nº
-                                                <Button onClick={() => handleRightDecrement(index)}><Remove /></Button>
-                                            </TableCell>
+                                    </TableHead>
+                                    <TableBody>
+                                        {reworkDefects.map((defect, index) => (
+                                            < TableRow key={index} >
+                                                <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
+                                                    <Button onClick={() => handleLeftIncrement(index)}><Add /></Button>
+                                                    Nº
+                                                    <Button onClick={() => handleLeftDecrement(index)}><Remove /></Button>
+                                                </TableCell>
+                                                <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>{defect.descripcion}</TableCell>
+                                                <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
+                                                    <Button onClick={() => handleRightIncrement(index)}><Add /></Button>
+                                                    Nº
+                                                    <Button onClick={() => handleRightDecrement(index)}><Remove /></Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
+                        <Grid item sx={{ m: 3 }}>
+
+                        </Grid>
+                        <Grid item>
+                            <TableContainer component={Paper} >
+                                Observado
+                                <Table >
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell sx={{ p: 1, textAlign: "center" }}>Izquierda</TableCell>
+                                            <TableCell sx={{ p: 1, textAlign: "center" }}>Defecto</TableCell>
+                                            <TableCell sx={{ p: 1, textAlign: "center" }}>Derecha</TableCell>
                                         </TableRow>
-                                    ))
-                                    }
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
+                                    </TableHead>
+                                    <TableBody>
+                                        {reworkDefects.map((defect, index) => (
+                                            < TableRow key={index} >
+                                                <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
+                                                    <Button onClick={() => handleLeftIncrement(index)}><Add /></Button>
+                                                    Nº
+                                                    <Button onClick={() => handleLeftDecrement(index)}><Remove /></Button>
+                                                </TableCell>
+                                                <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>{defect.descripcion}</TableCell>
+                                                <TableCell sx={{ p: 0, m: 0, textAlign: "center" }}>
+                                                    <Button onClick={() => handleRightIncrement(index)}><Add /></Button>
+                                                    Nº
+                                                    <Button onClick={() => handleRightDecrement(index)}><Remove /></Button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))
+                                        }
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </Grid>
                     </Grid>
+
+
                 </Grid>
 
             )
